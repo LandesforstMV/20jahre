@@ -1,35 +1,232 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>20 Jahre Landesforst MV</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20 Jahre Landesforst MV</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: #154734;
+    color: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+}
+
+/* Zeitstrahl */
+.vertical-line {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(62, 130, 44, 0.4) 15%, rgba(62, 130, 44, 0.4) 85%, transparent);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+.section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 2s ease;
+    padding: 5vw;
+    box-sizing: border-box;
+}
+
+.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.content-box {
+    width: 90%;
+    max-width: 1400px;
+    position: relative;
+    z-index: 2;
+    padding: 60px 0;
+    margin-top: 120px; 
+}
+
+/* Jahreszahl */
+.year-box {
+    position: absolute;
+    top: -150px; 
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid rgba(62, 130, 44, 0.5); 
+    background: rgba(21, 71, 52, 0.9);
+    backdrop-filter: blur(5px);
+    padding: 0.6vw 3.5vw;
+    border-radius: 2px;
+    font-size: 2vw;
+    font-weight: 300;
+    color: rgba(62, 130, 44, 1);
+    letter-spacing: 8px;
+    z-index: 3;
+    opacity: 0;
+}
+
+/* Kennzahlen Layout */
+.stat-container {
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+}
+
+.stat-number {
+    font-size: 14vw; /* Deutlich vergrößert */
+    font-weight: 700;
+    line-height: 0.9;
+    color: #3e822c;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.stat-title {
+    font-size: 4vw;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.stat-desc {
+    font-size: 2.2vw;
+    max-width: 1000px;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.dept-tag {
+    display: inline-block;
+    font-size: 1vw;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    color: rgba(160, 214, 148, 0.5);
+    border-bottom: 1px solid rgba(62, 130, 44, 0.3);
+    padding-bottom: 8px;
+}
+
+/* Split Layout */
+.split {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8vw;
+}
+
+.split img {
+    width: 50%;
+    height: 550px; /* Höhe erhöht */
+    border-radius: 4px;
+    object-fit: cover;
+    filter: brightness(85%);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+    opacity: 0;
+}
+
+.text {
+    width: 45%;
+    font-size: 2.4vw; /* Text größer */
+    font-weight: 300;
+    line-height: 1.5;
+    opacity: 0;
+}
+
+h1 {
+    font-size: 4.5vw; /* Überschrift größer */
+    font-weight: 400;
+    margin: 15px 0 25px 0;
+    color: white;
+    line-height: 1.1;
+}
+
+/* Animationen */
+.active .year-box { animation: fadeInSimple 1.5s ease forwards; }
+.active .split img { animation: fadeInUp 2s ease forwards 0.5s; }
+.active .split .text { animation: fadeInUp 2s ease forwards 0.8s; }
+.active .stat-container { animation: fadeInUp 2s ease forwards 0.5s; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInSimple {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+</style>
 </head>
+
 <body>
-    <header>
-        <h1>20 Jahre Landesforst MV</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Willkommen zur Präsentation</h2>
-            <p>Feiern Sie mit uns 20 Jahre engagierte Arbeit im Landesforst MV!</p>
-        </section>
-        <section>
-            <h2>Unsere Leistungen</h2>
-            <ul>
-                <li>Nachhaltige Forstwirtschaft</li>
-                <li>Schutz der Wälder</li>
-                <li>Förderung der Biodiversität</li>
-            </ul>
-        </section>
-        <section>
-            <h2>Kontakt</h2>
-            <p>Für weitere Informationen kontaktieren Sie uns unter <a href="mailto:info@landesforstmv.de">info@landesforstmv.de</a>.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Landesforst MV</p>
-    </footer>
+
+<div class="vertical-line"></div>
+
+<div class="section active">
+    <div class="content-box">
+        <div class="year-box">2015</div>
+        <div class="split">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600" alt="Wald">
+            <div class="text">
+                <div class="dept-tag">Waldbau</div>
+                <h1>Waldumbau</h1>
+                Entwicklung stabiler Mischwälder für MV.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="content-box">
+        <div class="year-box">BILANZ</div>
+        <div class="stat-container">
+            <div class="dept-tag">Naturschutz & Ökologie</div>
+            <span class="stat-number">80 Mio.</span>
+            <div class="stat-title">Gepflanzte Bäume</div>
+            <p class="stat-desc">
+                Ein starkes Fundament für die Wälder künftiger Generationen.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="content-box">
+        <div class="year-box">2019</div>
+        <div class="split">
+            <div class="text">
+                <div class="dept-tag">Organisation</div>
+                <h1>Digitaler Forst</h1>
+                Zukunftsorientierte Steuerung für unsere Betriebe.
+            </div>
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600" alt="Technik">
+        </div>
+    </div>
+</div>
+
+<script>
+const sections = document.querySelectorAll(".section");
+let current = 0;
+
+function next() {
+    sections[current].classList.remove("active");
+    setTimeout(() => {
+        current = (current + 1) % sections.length;
+        sections[current].classList.add("active");
+    }, 100); 
+}
+
+setInterval(next, 9000);
+</script>
+
 </body>
 </html>
